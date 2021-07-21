@@ -687,6 +687,11 @@ fn post_process() {
 							let copy = reacters.drain(..).collect::<Vec<_>>();
 							writeln!(file, "Checkpoint 3").unwrap();
 							let _ = sender.try_send(Box::new(move || {
+								let mut file = OpenOptions::new()
+									.write(true)
+									.append(true)
+									.open("/testlogs/auxmos.log")
+									.unwrap();
 								writeln!(file, "Checkpoint 4").unwrap();
 								for &i in &copy {
 									let turf = unsafe { Value::turf_by_id_unchecked(i) };
