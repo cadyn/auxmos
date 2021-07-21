@@ -342,20 +342,24 @@ fn _react_hook(holder: Value) {
 		.append(true)
 		.open("/testlogs/auxmos.log")
 		.unwrap();
-	writeln!(file, "/proc/react begin").unwrap();
+	//writeln!(file, "/proc/react begin").unwrap();
 	let mut ret: i32 = 0;
 	let reactions = with_mix(src, |mix| Ok(mix.all_reactable()))?;
-	writeln!(file, "React-c1").unwrap();
+
+	//writeln!(file, "React-c1").unwrap();
 	for reaction in reactions {
 		writeln!(file, "Reaction-c1.5 loop").unwrap();
-		ret |= react_by_id(reaction, src, holder)?
-			.as_number()
-			.unwrap_or_default() as i32;
-		if ret & STOP_REACTIONS == STOP_REACTIONS {
-			return Ok(Value::from(ret as f32));
+		match react_by_id(reaction, src, holder) {
+			Err(e) => writeln!(file,"{}",e.to_string()).unwrap(),
+			Ok(res) => writeln!(file,"{}",res).unwrap(),
 		}
+//			.as_number()
+//			.unwrap_or_default() as i32;
+//		if ret & STOP_REACTIONS == STOP_REACTIONS {
+//			return Ok(Value::from(ret as f32));
+//		}
 	}
-	writeln!(file, "React-c2").unwrap();
+	//writeln!(file, "React-c2").unwrap();
 	Ok(Value::from(ret as f32))
 }
 
