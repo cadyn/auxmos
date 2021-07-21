@@ -695,6 +695,7 @@ fn post_process() {
 								writeln!(file, "Checkpoint 4").unwrap();
 								for &i in &copy {
 									let turf = unsafe { Value::turf_by_id_unchecked(i) };
+									writeln!(file, "Checkpoint 4.5").unwrap();
 									turf.get(byond_string!("air"))?.call("react", &[&turf])?;
 								}
 								writeln!(file, "Checkpoint 5").unwrap();
