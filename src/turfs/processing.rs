@@ -12,9 +12,6 @@ use auxcallback::{byond_callback_sender, process_callbacks_for_millis};
 
 use std::sync::atomic::{AtomicBool, AtomicU64, AtomicU8, Ordering};
 
-use std::fs::OpenOptions;
-use std::io::prelude::*;
-
 use parking_lot::RwLock;
 
 const PROCESS_NOT_STARTED: u8 = 0;
