@@ -700,11 +700,11 @@ fn post_process() {
 										Err(e) => writeln!(file,"{}",e.message).unwrap(),
 										Ok(res) => {
 											match res.call("react", &[&turf]) {
-												Err(e) => writeln!(file,"{}",e.message.unwrap(),
-												Ok(res) => writeln!(file,"{}",res).unwrap()
-											}
+												Err(e) => writeln!(file,"{}",e.message).unwrap(),
+												Ok(res),
+											};
 										},
-									}
+									};
 								}
 								writeln!(file, "Checkpoint 5").unwrap();
 								Ok(Value::null())
