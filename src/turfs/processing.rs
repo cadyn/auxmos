@@ -697,11 +697,11 @@ fn post_process() {
 									let turf = unsafe { Value::turf_by_id_unchecked(i) };
 									//writeln!(file, "Checkpoint 4.5").unwrap();
 									match turf.get(byond_string!("air")) {
-										Err(e) => writeln!(file,e.to_string()).unwrap(),
+										Err(e) => writeln!(file,"{}",e.to_string()).unwrap(),
 										Ok(res) => {
 											match res.call("react", &[&turf]) {
-												Err(e) => writeln!(file,e.to_string()).unwrap(),
-												Ok(res) => writeln!(file,res).unwrap()
+												Err(e) => writeln!(file,"{}",e.to_string()).unwrap(),
+												Ok(res) => writeln!(file,"{}",res).unwrap()
 											}
 										},
 									}
