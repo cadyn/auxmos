@@ -630,7 +630,7 @@ fn post_process() {
 		.append(true)
 		.open("/testlogs/auxmos.log")
 		.unwrap();
-	writeln!(file, "Post process tick").unwrap()
+	//writeln!(file, "Post process tick").unwrap();
 	let should_check_planet_turfs = unsafe {
 		let timer = PLANET_RESET_TIMER.get_or_insert_with(Instant::now);
 		if timer.elapsed() > Duration::from_secs(5) {
@@ -681,20 +681,20 @@ fn post_process() {
 					}
 					if reactable {
 						
-						writeln!(file, "Reaction begin").unwrap()
+						writeln!(file, "Reaction begin").unwrap();
 						reacters.push_back(i);
-						writeln!(file, "Checkpoint 1").unwrap()
+						writeln!(file, "Checkpoint 1").unwrap();
 						if reacters.len() >= 10 {
-							writeln!(file, "Checkpoint 2").unwrap()
+							writeln!(file, "Checkpoint 2").unwrap();
 							let copy = reacters.drain(..).collect::<Vec<_>>();
-							writeln!(file, "Checkpoint 3").unwrap()
+							writeln!(file, "Checkpoint 3").unwrap();
 							let _ = sender.try_send(Box::new(move || {
-								writeln!(file, "Checkpoint 4").unwrap()
+								writeln!(file, "Checkpoint 4").unwrap();
 								for &i in &copy {
 									let turf = unsafe { Value::turf_by_id_unchecked(i) };
 									turf.get(byond_string!("air"))?.call("react", &[&turf])?;
 								}
-								writeln!(file, "Checkpoint 5").unwrap()
+								writeln!(file, "Checkpoint 5").unwrap();
 								Ok(Value::null())
 							}));
 						}
