@@ -350,7 +350,7 @@ fn _react_hook(holder: Value) {
 	for reaction in reactions {
 		writeln!(file, "Reaction-c1.5 loop").unwrap();
 		match react_by_id(reaction, src, holder) {
-			Err(e) => writeln!(file,"{}",e.to_string()).unwrap(),
+			Err(e) => writeln!(file,"{}",e.message).unwrap(),
 			Ok(res) => writeln!(file,"{}",res).unwrap(),
 		}
 //			.as_number()
