@@ -625,6 +625,12 @@ fn post_process_cell(
 // Goes through every turf, checks if it should reset to planet atmos, if it should
 // update visuals, if it should react, sends a callback if it should.
 fn post_process() {
+	let mut file = OpenOptions::new()
+		.write(true)
+		.append(true)
+		.open("/testlogs/auxmos.log")
+		.unwrap();
+	writeln!(file, "Post process tick").unwrap()
 	let should_check_planet_turfs = unsafe {
 		let timer = PLANET_RESET_TIMER.get_or_insert_with(Instant::now);
 		if timer.elapsed() > Duration::from_secs(5) {
@@ -674,11 +680,7 @@ fn post_process() {
 						}
 					}
 					if reactable {
-						let mut file = OpenOptions::new()
-							.write(true)
-							.append(true)
-							.open("/testlogs/auxmos.log")
-							.unwrap();
+						
 						writeln!(file, "Reaction begin").unwrap()
 						reacters.push_back(i);
 						writeln!(file, "Checkpoint 1").unwrap()
