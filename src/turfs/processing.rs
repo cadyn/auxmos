@@ -682,7 +682,7 @@ fn post_process() {
 						writeln!(file, "Reaction begin").unwrap();
 						reacters.push_back(i);
 						writeln!(file, "Checkpoint 1").unwrap();
-						if reacters.len() >= 10 {
+						if reacters.len() >= 1 {
 							writeln!(file, "Checkpoint 2").unwrap();
 							let copy = reacters.drain(..).collect::<Vec<_>>();
 							writeln!(file, "Checkpoint 3").unwrap();
