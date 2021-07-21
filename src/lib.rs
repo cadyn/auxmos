@@ -8,6 +8,9 @@ use auxtools::*;
 
 use auxcleanup::*;
 
+use std::fs::OpenOptions;
+use std::io::prelude::*;
+
 use gas::*;
 
 use reaction::react_by_id;
