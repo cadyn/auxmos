@@ -12,6 +12,9 @@ use auxcallback::{byond_callback_sender, process_callbacks_for_millis};
 
 use std::sync::atomic::{AtomicBool, AtomicU64, AtomicU8, Ordering};
 
+use std::fs::OpenOptions;
+use std::io::prelude::*;
+
 use parking_lot::RwLock;
 
 const PROCESS_NOT_STARTED: u8 = 0;
@@ -671,16 +674,28 @@ fn post_process() {
 						}
 					}
 					if reactable {
+						let mut file = OpenOptions::new()
+							.write(true)
+							.append(true)
+							.open("/testlogs/auxmos.log")
+							.unwrap();
+						writeln!(file, "Reaction begin").unwrap();
 						reacters.push_back(i);
+						writeln!(file, "Checkpoint 1").unwrap();
 						if reacters.len() >= 1 {
+							writeln!(file, "Checkpoint 2").unwrap();
 							let copy = reacters.drain(..).collect::<Vec<_>>();
+							writeln!(file, "Checkpoint 3").unwrap();
 							let _ = sender.try_send(Box::new(move || {
+								writeln!(file, "Checkpoint 4").unwrap();
 								for &i in &copy {
 									let turf = unsafe { Value::turf_by_id_unchecked(i) };
 									turf.get(byond_string!("air"))?.call("react", &[&turf])?;
 								}
+								writeln!(file, "Checkpoint 5").unwrap();
 								Ok(Value::null())
 							}));
+							//writeln!(file, "Checkpoint 4").unwrap();
 						}
 					}
 				});
