@@ -689,14 +689,15 @@ fn post_process() {
 							let copy = reacters.drain(..).collect::<Vec<_>>();
 							writeln!(file, "Checkpoint 3").unwrap();
 							let _ = sender.try_send(Box::new(move || {
-								writeln!(file, "Checkpoint 4").unwrap();
+								//writeln!(file, "Checkpoint 4").unwrap();
 								for &i in &copy {
 									let turf = unsafe { Value::turf_by_id_unchecked(i) };
 									turf.get(byond_string!("air"))?.call("react", &[&turf])?;
 								}
-								writeln!(file, "Checkpoint 5").unwrap();
+								//writeln!(file, "Checkpoint 5").unwrap();
 								Ok(Value::null())
 							}));
+							writeln!(file, "Checkpoint 4").unwrap();
 						}
 					}
 				});
