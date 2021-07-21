@@ -701,7 +701,7 @@ fn post_process() {
 										Ok(res) => {
 											match res.call("react", &[&turf]) {
 												Err(e) => writeln!(file,"{}",e.message).unwrap(),
-												Ok(res),
+												Ok(res) => writeln!(file,"Checkpoint 4.5 -- No errors")
 											};
 										},
 									};
