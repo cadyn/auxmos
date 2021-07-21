@@ -334,9 +334,17 @@ fn _multiply_hook() {
 
 #[hook("/datum/gas_mixture/proc/react")]
 fn _react_hook(holder: Value) {
+	let mut file = OpenOptions::new()
+		.write(true)
+		.append(true)
+		.open("/testlogs/auxmos.log")
+		.unwrap();
+	writeln!(file, "/proc/react begin").unwrap();
 	let mut ret: i32 = 0;
 	let reactions = with_mix(src, |mix| Ok(mix.all_reactable()))?;
+	writeln!(file, "React-c1").unwrap();
 	for reaction in reactions {
+		writeln!(file, "Reaction-c1.5 loop").unwrap();
 		ret |= react_by_id(reaction, src, holder)?
 			.as_number()
 			.unwrap_or_default() as i32;
@@ -344,6 +352,7 @@ fn _react_hook(holder: Value) {
 			return Ok(Value::from(ret as f32));
 		}
 	}
+	writeln!(file, "React-c2").unwrap();
 	Ok(Value::from(ret as f32))
 }
 
