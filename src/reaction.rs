@@ -5,6 +5,9 @@ use auxtools::*;
 
 use std::cell::RefCell;
 
+use std::fs::OpenOptions;
+use std::io::prelude::*;
+
 use crate::gas::{gas_idx_to_id, total_num_gases, GasIDX, Mixture};
 
 use core::cmp::Ordering;
@@ -82,6 +85,12 @@ fn clean_up_reaction_values() {
 }
 
 pub fn react_by_id(id: ReactionIdentifier, src: &Value, holder: &Value) -> DMResult {
+	let mut file = OpenOptions::new()
+		.write(true)
+		.append(true)
+		.open("/testlogs/auxmos.log")
+		.unwrap();
+	writeln!(file, "rbid {}, {}, {}",id,src.get_string(byond_string!("name")),holder.get_string(byond_string!("name"))).unwrap();
 	REACTION_VALUES.with(|r| {
 		r.borrow().get(&id).map_or_else(
 			|| Err(runtime!("Reaction with invalid id")),
