@@ -90,7 +90,7 @@ pub fn react_by_id(id: ReactionIdentifier, src: &Value, holder: &Value) -> DMRes
 		.append(true)
 		.open("/testlogs/auxmos.log")
 		.unwrap();
-	writeln!(file, "rbid {}, {}",src.get_string(byond_string!("name")).unwrap(),holder.get_string(byond_string!("name")).unwrap()).unwrap();
+	writeln!(file, "rbid {},",holder.get_string(byond_string!("name"))?);
 	REACTION_VALUES.with(|r| {
 		r.borrow().get(&id).map_or_else(
 			|| Err(runtime!("Reaction with invalid id")),
