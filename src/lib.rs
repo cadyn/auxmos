@@ -342,6 +342,7 @@ fn _react_hook(holder: Value) {
 		.append(true)
 		.open("/testlogs/auxmos.log")
 		.unwrap();
+	writeln!(file, "rproc {}",holder.get_string(byond_string!("name"))?).unwrap();
 	//writeln!(file, "/proc/react begin").unwrap();
 	let mut ret: i32 = 0;
 	let reactions = with_mix(src, |mix| Ok(mix.all_reactable()))?;
